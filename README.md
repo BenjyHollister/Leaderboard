@@ -1,0 +1,1 @@
+This project is to consolidate my learning of Python in a project form. My end goal is to create an app for leaderboards, however I am starting at the very beginning by creating a program that outputs the leaderboard in the terminal.
