@@ -1,4 +1,36 @@
 import json
+import tkinter as tk
+from tkinter import messagebox
+
+window = tk.Tk()
+window.title("window")
+window.geometry("400x600")
+
+window.rowconfigure(0, weight=1)
+window.columnconfigure(0, weight=1)
+
+menu_frame = tk.Frame(window)
+menu_frame.grid(row=0, column=0, sticky="nsew")
+
+label = tk.Label(menu_frame, text="Welcome to the Leaderboards", font=('Arial', 18))
+label.pack(padx=20, pady=20)
+
+label = tk.Label(menu_frame, text="Main Menu", font=('Arial', 14))
+label.pack(padx=20, pady=30)
+
+
+btn1 = tk.Button(menu_frame, text="Leaderboard", width=25)
+btn1.pack(pady=10)
+
+btn2 = tk.Button(menu_frame, text="Help", width=25)
+btn2.pack(pady=10)
+
+btn3 = tk.Button(menu_frame, text="Exit", width=25)
+btn3.pack(pady=10)
+
+menu_frame.tkraise()
+
+window.mainloop()
 
 FILENAME = "leaderboard.json"    
 
@@ -15,7 +47,8 @@ except FileNotFoundError:
       json.dump(Leaderboard, f)
 
 exit = False
-while exit == False:
+
+while exit == False:                    #add a break between when the last thing was executed til when the next choice is printed
 
    print("What would you like to do?")
    print("1. View Leaderboard")
@@ -51,7 +84,6 @@ while exit == False:
    elif choice == 5:
       print("Exiting program...")
       exit = True
-   
    
    else:
       print("No option selected, select another option")
