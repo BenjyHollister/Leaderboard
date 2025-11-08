@@ -14,7 +14,7 @@ This project is a python-based application designed to manage and display the sc
 * [Webapp Demo]()
 
 ## Documentation
-The following is the step-by-step plan from the start of the project: [Leaderboard Plan](Plan.md)
+The following is the step-by-step plan from the start of the project: [Leaderboard Plan](Leaderboard_Plan.md)
 
 ## Future Improvements
 * Make it universally usable to fit any users' needs
