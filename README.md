@@ -9,7 +9,7 @@ This project is a python-based application designed to manage and display the sc
 * Automatically sort rankings in real time
 * Simple and readable code structure
 ## Demo Videos
-* [Terminal Output Demo]()
+* [Terminal Output Demo](https://github.com/user-attachments/assets/c26b223a-e803-4115-8932-6b3fac6597a0)
 * [Simple GUI Demo]()
 * [Webapp Demo]()
 
