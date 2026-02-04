@@ -1,6 +1,7 @@
 import json
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import filedialog, ttk
 
 window = tk.Tk()
 window.title("window")
@@ -14,7 +15,6 @@ menu_frame.grid(row=0, column=0, sticky="nsew")
 
 lb_frame = tk.Frame(window)
 lb_frame.grid(row=0, column=0, sticky="nsew")
-
 
 
 #Button functions
@@ -33,12 +33,148 @@ def help():
    
 def toLeaderboard():
    lb_frame.tkraise()
+   load_leaderboard()
 
 
-#def add():
-   #this should be a dropdown within the leaderboard, and able to sdelect new score or new user
+def addPlayer():
+   #add a prompt space to write who the new user is
+   popup = tk.Toplevel(window)
+   popup.title("Add Player")
+   popup.geometry("300x150")
+   #popup.resizable(False,False)
+      
+   addPrompt = tk.Label(popup, text="Who is this new user?", font=('Arial', 12))
+   addPrompt.pack(pady=10)
 
-#def delete():
+   entry = tk.Entry(popup, width=25)
+   entry.pack(pady=5)
+
+   def submit():
+      name = entry.get().strip()
+      if not name:
+         messagebox.showwarning("Input Error", "Please enter a name.")
+         return
+      
+      rank = len(tree.get_children()) + 1
+      tree.insert("", "end", values=(rank, name, 0))
+      popup.destroy()
+
+   submit_btn = tk.Button(popup, text="Submit", command=submit)
+   submit_btn.pack(pady=10)
+      
+      
+         #THE FUNCTION BELOW IS TOO COMPLICATED. SIMPLIFY IT AND THEN COMMIT TO GIT
+
+
+def addScore():
+   #add a prompt space to write who its for, then based on that add the score that they type in another prompt
+   popup = tk.Toplevel(window)
+   popup.title("Add Score")
+   popup.geometry("300x180")
+   #popup.resizable(False,False)
+
+   namePrompt = tk.Label(popup, text="Who is this score for?", font=('Arial', 12))
+   namePrompt.pack(pady=10)
+
+   name_entry = tk.Entry(popup, width=25)
+   name_entry.pack(pady=5)
+
+   scorePrompt = tk.Label(popup, text="Enter new score: ", font=('Arial', 12))
+   scorePrompt.pack(pady=5)
+
+   score_entry = tk.Entry(popup, width=25)
+   score_entry.pack(pady=5)
+
+   def submit():
+      name = name_entry.get().strip()
+      score_text = score_entry.get().strip()
+
+      if not name or not score_text:
+         messagebox.showwarning("Missing Info", "Please enter both name and score.")
+         return
+
+      try:
+         score = float(score_text)
+      except ValueError:
+         messagebox.showwarning("Invalid Score", "Score must be a number.")
+         return
+
+      # Update if player exists
+      for item in tree.get_children():
+         rank, player, old_score = tree.item(item, "values")
+         if player.lower() == name.lower():
+            tree.item(item, values=(rank, player, score))
+            messagebox.showinfo("Updated", f"{player}'s score updated to {score}.")
+            popup.destroy()
+            return
+
+      # Otherwise, add new player
+      rank = len(tree.get_children()) + 1
+      tree.insert("", "end", values=(rank, name, score))
+      messagebox.showinfo("Added", f"{name} added with score {score}.")
+      popup.destroy()
+   
+   submit_btn = tk.Button(popup, text="Submit", command=submit)
+   submit_btn.pack(pady=10)
+
+
+
+#Add menu dropdown
+add_menu = tk.Menubutton(lb_frame, text="Add", width=15, relief="raised")
+add_menu.menu = tk.Menu(add_menu, tearoff=0)
+add_menu["menu"] = add_menu.menu
+
+add_menu.menu.add_command(label="Add Player", command=addPlayer)
+add_menu.menu.add_command(label="Add Score", command=addScore)
+
+add_menu.grid(row=2, column=0, pady=10)
+
+def delete():
+   #add a prompt space to write who you're deleting, then based on that delete the score that they type in another prompt
+   popup = tk.Toplevel(window)
+   popup.title("Delete Score")
+   popup.geometry("300x180")
+
+   namePrompt = tk.Label(popup, text="Who's score are you deleting?", font=('Arial', 12))
+   namePrompt.pack(pady=10)
+
+   name_entry = tk.Entry(popup, width=25)
+   name_entry.pack(pady=5)
+
+   def confirm_delete():
+      name = name_entry.get()
+      #delete logic here
+      popup.destroy
+
+   def submit():
+      #the logic for deleting an entry
+      name = name_entry.get().strip()
+
+      if not name:
+         messagebox.showwarning("Missing Info", "Please enter a name to delete.")
+         return
+      
+      #search and delete player
+      for item in tree.get_children():
+         rank, player, score = tree.item(item, "values")
+
+         if player.lower() == name.lower():
+            deleted_player = player #save deleted player, to fix messagebox error
+            tree.delete(item)
+
+            for i, item in enumerate(tree.get_children(), start=1):
+               _, player, score = tree.item(item, "values")
+               tree.item(item, values=(i, player, score))
+
+            messagebox.showinfo("Deleted", f"{deleted_player} has been removed from the leaderboard.")      
+            popup.destroy()
+            return
+      #If name not found
+      messagebox.showwarning("Not Found", f"No player name '{name}' found.")
+
+   submit_btn = tk.Button(popup, text="Submit", command=submit)
+   submit_btn.pack(pady=10)
+
 
 def back():
    menu_frame.tkraise()
@@ -63,24 +199,59 @@ btn3.pack(pady=10)
 
 
 #Leaderboard frame
+
+   #treeview 
+columns = ("Rank", "Name", "Score")
+tree = ttk.Treeview(lb_frame, columns=columns, show="headings", height=10)
+
+for col in columns:
+   tree.heading(col, text=col)
+   tree.column(col, anchor="center", width=100)
+
+tree.grid(row=1, column=0, columnspan=3, sticky="nsew", padx=5, pady=5)
+
+lb_frame.grid_rowconfigure(1, weight=1)
+lb_frame.grid_columnconfigure((0,1,2), weight=1)
+
+
 label = tk.Label(lb_frame, text="Shot Speed", font=('Arial', 18))
-label.pack(padx=20, pady=20)
+label.grid(row=0, column=0, columnspan=3, pady=20)
 
-lb_btn1 = tk.Button(lb_frame, text= "Add", width=15) #, command=add
-lb_btn1.pack(side=tk.LEFT, padx=10, pady=10)
-
-lb_btn2 = tk.Button(lb_frame, text = "Delete", width=15) #, command=delete
-lb_btn2.pack(side=tk.LEFT, padx=10, pady=10)
+lb_btn2 = tk.Button(lb_frame, text = "Delete", width=15, command=delete) #, command=delete
+lb_btn2.grid(row=2, column=1, pady=10)
 
 lb_btn3 = tk.Button(lb_frame, text="Back", width=15, command=back)
-lb_btn3.pack(side=tk.LEFT, padx=10, pady=10)
+lb_btn3.grid(row=2, column=2, pady=10)
 
 menu_frame.tkraise()
 
+# FILE HANDLING
+
+FILENAME = "leaderboard.json"  
+
+   #file with GUI
+try:
+   with open(FILENAME, "r") as f:
+      Leaderboard = json.load(f)
+except FileNotFoundError:
+   Leaderboard = {'Benjy' : 50, "Sharlie" : 6, "Eliott" : 55}
+   with open(FILENAME, "w") as f:
+      json.dump(Leaderboard, f, indent=4)
+
+for row in tree.get_children():
+   tree.delete(row)
+
+sorted_board = sorted(Leaderboard.items(), key=lambda item: item[1], reverse=True)
+for i, (name, score) in enumerate(sorted_board, start=1):
+   tree.insert("", "end", values=(i, name, score))
+
+
 window.mainloop()
 
-#So that the scores which are altered are saved and we don't just have a hard-coded dictionary, we save it to a file
-FILENAME = "leaderboard.json"    
+      #MAKE A WAY TO SAVE AT THE END OF THE PROGRAM BACK TO THE FILE
+
+#Following is the program for the terminal output
+"""
 
 try:
    with open("leaderboard.json", "r") as f:
@@ -93,7 +264,7 @@ except FileNotFoundError:
       json.dump(Leaderboard, f)
 
 exit = False
-"""
+
 while exit == False:                    #add a break between when the last thing was executed til when the next choice is printed
 
    print("What would you like to do?")
