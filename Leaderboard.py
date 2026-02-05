@@ -17,6 +17,46 @@ lb_frame = tk.Frame(window)
 lb_frame.grid(row=0, column=0, sticky="nsew")
 
 
+#Leaderboard frame
+
+   #treeview 
+columns = ("Rank", "Name", "Score")
+tree = ttk.Treeview(lb_frame, columns=columns, show="headings", height=10)
+
+for col in columns:
+   tree.heading(col, text=col)
+   tree.column(col, anchor="center", width=100)
+
+tree.grid(row=1, column=0, columnspan=3, sticky="nsew", padx=5, pady=5)
+
+lb_frame.grid_rowconfigure(1, weight=1)
+lb_frame.grid_columnconfigure((0,1,2), weight=1)
+
+
+
+# FILE HANDLING
+
+FILENAME = "leaderboard.json"  
+
+   #file with GUI
+try:
+   with open(FILENAME, "r") as f:
+      Leaderboard = json.load(f)
+except FileNotFoundError:
+   Leaderboard = {'Benjy' : 50.0, "Sharlie" : 6.0, "Eliott" : 55.0}
+   with open(FILENAME, "w") as f:
+      json.dump(Leaderboard, f, indent=4)
+
+for row in tree.get_children():
+   tree.delete(row)
+
+sorted_board = sorted(Leaderboard.items(), key=lambda item: item[1], reverse=True)
+for i, (name, score) in enumerate(sorted_board, start=1):
+   tree.insert("", "end", values=(i, name, score))
+
+
+
+
 #Button functions
 
 def exit():
@@ -59,6 +99,11 @@ def addPlayer():
       tree.insert("", "end", values=(rank, name, 0))
       popup.destroy()
 
+
+      Leaderboard[name] = 0.0
+      with open(FILENAME, "w") as f:     #saving the new leaderboard to the file directly inside the function to fix the not saving score problem
+         json.dump(Leaderboard, f, indent=4)
+
    submit_btn = tk.Button(popup, text="Submit", command=submit)
    submit_btn.pack(pady=10)
       
@@ -88,6 +133,11 @@ def addScore():
    def submit():
       name = name_entry.get().strip()
       score_text = score_entry.get().strip()
+      score = float(score_text) #converting string to float so it can be added successfully to leaderboard file
+
+      Leaderboard[name] = score
+      with open(FILENAME, "w") as f:     #saving the new leaderboard to the file directly inside the function to fix the not saving score problem
+         json.dump(Leaderboard, f, indent=4)
 
       if not name or not score_text:
          messagebox.showwarning("Missing Info", "Please enter both name and score.")
@@ -197,22 +247,7 @@ btn2.pack(pady=10)
 btn3 = tk.Button(menu_frame, text="Exit", width=25, command=exit)
 btn3.pack(pady=10)
 
-
 #Leaderboard frame
-
-   #treeview 
-columns = ("Rank", "Name", "Score")
-tree = ttk.Treeview(lb_frame, columns=columns, show="headings", height=10)
-
-for col in columns:
-   tree.heading(col, text=col)
-   tree.column(col, anchor="center", width=100)
-
-tree.grid(row=1, column=0, columnspan=3, sticky="nsew", padx=5, pady=5)
-
-lb_frame.grid_rowconfigure(1, weight=1)
-lb_frame.grid_columnconfigure((0,1,2), weight=1)
-
 
 label = tk.Label(lb_frame, text="Shot Speed", font=('Arial', 18))
 label.grid(row=0, column=0, columnspan=3, pady=20)
@@ -224,28 +259,6 @@ lb_btn3 = tk.Button(lb_frame, text="Back", width=15, command=back)
 lb_btn3.grid(row=2, column=2, pady=10)
 
 menu_frame.tkraise()
-
-# FILE HANDLING
-
-FILENAME = "leaderboard.json"  
-
-   #file with GUI
-try:
-   with open(FILENAME, "r") as f:
-      Leaderboard = json.load(f)
-except FileNotFoundError:
-   Leaderboard = {'Benjy' : 50, "Sharlie" : 6, "Eliott" : 55}
-   with open(FILENAME, "w") as f:
-      json.dump(Leaderboard, f, indent=4)
-
-for row in tree.get_children():
-   tree.delete(row)
-
-sorted_board = sorted(Leaderboard.items(), key=lambda item: item[1], reverse=True)
-for i, (name, score) in enumerate(sorted_board, start=1):
-   tree.insert("", "end", values=(i, name, score))
-
-
 window.mainloop()
 
       #MAKE A WAY TO SAVE AT THE END OF THE PROGRAM BACK TO THE FILE
@@ -305,7 +318,4 @@ while exit == False:                    #add a break between when the last thing
    else:
       print("No option selected, select another option")
 """
-
-with open(FILENAME, "w") as f:
-   json.dump(Leaderboard, f)
 
