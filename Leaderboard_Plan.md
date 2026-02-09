@@ -1,6 +1,6 @@
 # Leaderboard Project Plan
 ## Overview
-The aim of this project is to build a Python-based leaderboard app to keep track of scores amongst players of a sports team. Starting from a terminal app, to a basic GUI, to a polished app or webapp. The data for this project will be stored in MySQL.
+The aim of this project is to build a Python-based leaderboard app to keep track of scores amongst players of a sports team. Starting from a terminal app, to a basic GUI, to a polished app or webapp. My IDE of choice is VSCode. The data for this project will be stored in MySQL (not relevant until the web app version).
 
 ## Planned Features
 * Add player
@@ -16,9 +16,9 @@ I am going to break this project down into manageable steps, where I implement t
 
 **1.** Terminal Program - single leaderboard with basic functions outputted in the terminal of VSCode
 
-**2.** GUI Program - single leaderboard with same functions, presented in a simple GUI using Tkinter
+**2.** GUI Program - single leaderboard with the same functions, presented in a simple GUI using Tkinter
 
-**3.** Pycharm App - multiple leaderboard with same functions and some, presented in a fully working GUI, using the Pycharm IDE
+**3.** Web App - multiple leaderboards with the same functions and some extra, presented in a fully working GUI, using a Python framework (most probably flask)
 
 ### Terminal Program
 * This is going to be a very basic concept of the final version just to have a deliverable idea of what I want
@@ -46,10 +46,9 @@ I am going to break this project down into manageable steps, where I implement t
     * Player profiles
         * Includes their ranks on leaderboards and their scores
      * Record of previous scores shown, not only the highest score recorded
-     * 
 
 ## Demo Strategy
 * The demo's will be taken when the version is ready and posted on the readME.
 * The demo's will show the basic features and how the program works.
-* They are presenet to show how I've presented each program and to show that at the finished product of each program that they work.
+* They are present to show how I've presented each program and to show that at the finished product of each program that they work.
 
