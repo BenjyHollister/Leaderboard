@@ -50,13 +50,15 @@ except FileNotFoundError:
 for row in tree.get_children():
    tree.delete(row)
 
-sorted_board = sorted(Leaderboard.items(), key=lambda item: item[1], reverse=True)
-for i, (name, score) in enumerate(sorted_board, start=1):
-   tree.insert("", "end", values=(i, name, score))
 
-
-#def refresh_leaderboard():
+def refresh_leaderboard():
    #This function will be for live updating and sorting the leaderboard when things are changed
+   sorted_board = sorted(Leaderboard.items(), key=lambda item: item[1], reverse=True)
+   for i, (name, score) in enumerate(sorted_board, start=1):
+      tree.insert("", "end", values=(i, name, score))
+
+refresh_leaderboard()
+
 #Button functions
 
 def exit():
@@ -73,7 +75,7 @@ def help():
    
 def toLeaderboard():
    lb_frame.tkraise()
-   #refresh_leaderboard()     used for live updating
+   refresh_leaderboard()     #used for live updating
 
 
 def addPlayer():
@@ -104,7 +106,7 @@ def addPlayer():
       with open(FILENAME, "w") as f:     #saving the new leaderboard to the file directly inside the function to fix the not saving score problem
          json.dump(Leaderboard, f, indent=4)
 
-      #refresh_leaderboard()
+      refresh_leaderboard()
 
    submit_btn = tk.Button(popup, text="Submit", command=submit)
    submit_btn.pack(pady=10)
@@ -140,7 +142,7 @@ def addScore():
       with open(FILENAME, "w") as f:     #saving the new leaderboard to the file directly inside the function to fix the not saving score problem
          json.dump(Leaderboard, f, indent=4)
 
-      #refresh_leaderboard()
+      refresh_leaderboard()
 
       if not name or not score_text:
          messagebox.showwarning("Missing Info", "Please enter both name and score.")
@@ -219,7 +221,7 @@ def delete():
                _, player, score = tree.item(item, "values")
                tree.item(item, values=(i, player, score))
 
-            #refresh_leaderboard()
+            refresh_leaderboard()
             #saving the new leaderboard with deleted members to the file, as currently they aren't deleted on the jsongit 
 
             messagebox.showinfo("Deleted", f"{deleted_player} has been removed from the leaderboard.")      
