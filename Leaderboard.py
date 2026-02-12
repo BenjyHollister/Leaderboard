@@ -219,9 +219,13 @@ def delete():
             deleted_player = player #save deleted player, to fix messagebox error
             tree.delete(item)
 
+            Leaderboard.pop(player, None)
+
             for i, item in enumerate(tree.get_children(), start=1):
                _, player, score = tree.item(item, "values")
                tree.item(item, values=(i, player, score))
+
+            
 
             #saving the new leaderboard with deleted members to the file, as currently they aren't deleted on the jsongit 
 
