@@ -141,8 +141,6 @@ def addScore():
       score = float(score_text) #converting string to float so it can be added successfully to leaderboard file
 
       Leaderboard[name] = score
-      with open(FILENAME, "w") as f:     #saving the new leaderboard to the file directly inside the function to fix the not saving score problem
-         json.dump(Leaderboard, f, indent=4)
 
       refresh_leaderboard()
 
@@ -155,6 +153,9 @@ def addScore():
       except ValueError:
          messagebox.showwarning("Invalid Score", "Score must be a number.")
          return
+      
+      with open(FILENAME, "w") as f:     #saving the new leaderboard to the file directly inside the function to fix the not saving score problem
+         json.dump(Leaderboard, f, indent=4)
 
       # Update if player exists
       for item in tree.get_children():
@@ -226,7 +227,8 @@ def delete():
                tree.item(item, values=(i, player, score))
 
             
-
+            with open(FILENAME, "w") as f: 
+               json.dump(Leaderboard, f, indent=4)
             #saving the new leaderboard with deleted members to the file, as currently they aren't deleted on the jsongit 
 
             messagebox.showinfo("Deleted", f"{deleted_player} has been removed from the leaderboard.")      
