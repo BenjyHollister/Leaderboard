@@ -8,6 +8,20 @@ This project is a python-based application designed to manage and display the sc
 * Add, update, and remove player scores
 * Automatically sort rankings in real time
 * Simple and readable code structure
+
+## Usage
+Once the program is running, users can:
+* View the current leaderaboard rankings
+* Add new players and scores
+* Update existing player scores
+* Remove players from the leaderboard
+
+## Technologies Used
+* Python
+* Tkinter (for the GUI version)
+* Flask (for the web version)
+
+  
 ## Demo Videos
 * [Terminal Output Demo](https://github.com/user-attachments/assets/c26b223a-e803-4115-8932-6b3fac6597a0)
 * [Simple GUI Demo](https://github.com/user-attachments/assets/89b133be-de7e-4472-b175-60e98a586d90)
