@@ -34,4 +34,5 @@ The following is the step-by-step plan from the start of the project: [Leaderboa
 * Make it universally usable to fit any users' needs
 * Automatically upload the data into the leaderboard
 * Player profiles
-  
+
+## Post Project Review
