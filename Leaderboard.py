@@ -1,12 +1,7 @@
 import json
-from flask import Flask 
+from flask import Flask, render_template
 
 app = Flask(__name__)
-
-#Leaderboard frame
-
-   #previously had displaying of leaderboard, so need to be done in flask
-
 
 # FILE HANDLING
 
@@ -21,10 +16,24 @@ except FileNotFoundError:
    with open(FILENAME, "w") as f:
       json.dump(Leaderboard, f, indent=4)
 
-for row in tree.get_children():
-   tree.delete(row)
 
 
+#Leaderboard frame
+
+   #previously had displaying of leaderboard, so need to be done in flask
+
+@app.route("/leaderboard") #When this function is run, go to the url in the brackets
+def leaderboard():
+   sorted_board = sorted(Leaderboard.items(), key=lambda item: item[1], reverse=True)
+
+   leaderboard_data = [
+      {"rank": i+1, "name": name, "score": score}
+      for i, (name, score) in enumerate(sorted_board)
+   ]
+
+   return render_template("leaderboard.html", leaderboard="leaderboard_data")
+
+""" commented out until i can rewrite in for flask
 def refresh_leaderboard():
    #This function will be for live updating and sorting the leaderboard when things are changed
    sorted_board = sorted(Leaderboard.items(), key=lambda item: item[1], reverse=True)
@@ -34,7 +43,8 @@ def refresh_leaderboard():
       tree.insert("", "end", values=(i, name, score))
 
 refresh_leaderboard()
-
+"""
+""" all below is mixed logic/tkinter so is commented out so we can test step by step
 #Button functions
 
 def exit():
@@ -250,5 +260,8 @@ lb_btn3 = tk.Button(lb_frame, text="Back", width=15, command=back)
 lb_btn3.grid(row=2, column=2, pady=10)
 
 menu_frame.tkraise()
-window.mainloop()
 
+"""
+
+if __name__ == "__main__":
+   app.run(debug=True)

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <!-- Below is the html logic for the UI of the leaderboard  -->
+    <h1>Leaderboard</h1>
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Score</th>
+        </tr>
+
+        {% for player in leaderboard %}
+        <tr>
+            <td>{{ player.rank }}</td>
+            <td>{{ player.name }}</td>
+            <td>{{ player.score }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
