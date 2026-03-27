@@ -40,6 +40,7 @@ I am going to break this project down into manageable steps, where I implement t
 * This is the version that I will make available and usable for people, so it will be the most finished version
 * It will have the features: add score/player, delete player, show leaderboard, help window, switch between leaderboards
 * [Update] I am going to be making use of the Flask web framework for this section
+* Transferring from tkinter to flask is a case of separating tkinter functions from program logic, deleting tkinter functions, then rewriting logic embedded with flask tools and combined with UI html files
   
 
 ## Future Features
