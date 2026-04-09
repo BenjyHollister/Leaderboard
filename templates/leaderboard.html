@@ -18,10 +18,31 @@
         </tr>
         {% endfor %}
     </table>
-    <h2>Add Player</h2>
-    <form method="POST" action="/add_player">
-        <input type="text" name="name">
-        <button type="submit">Add Player</button>
-    </form>
+
+    <!-- Button container -->
+    <div id="button-container" style="margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap;">
+        <button onclick="openAddPlayerPopup()" style="padding: 10px 15px;">Add Player</button>
+    </div>
+
+    <!-- Add Player popup -->
+    <div id="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid black;">
+        <h2>Add Player</h2>
+
+        <form method="POST" action="/add_player">
+            <input type="text" name="name">
+            <button type="submit">Submit</button>
+            <button type="button" onclick="closeAddPlayerPopup()">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+    function openAddPlayerPopup() {
+        document.getElementById("popup").style.display = "block";
+    }   
+
+    function closeAddPlayerPopup() {
+        document.getElementById("popup").style.display = "none";
+    }
+    </script>
 </body>
 </html>
