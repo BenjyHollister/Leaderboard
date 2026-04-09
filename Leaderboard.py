@@ -1,5 +1,5 @@
 import json
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -31,7 +31,8 @@ def leaderboard():
       for i, (name, score) in enumerate(sorted_board)
    ]
 
-   return render_template("leaderboard.html", leaderboard="leaderboard_data")
+   return render_template("leaderboard.html", leaderboard=leaderboard_data)
+
 
 """ commented out until i can rewrite in for flask
 def refresh_leaderboard():
@@ -63,43 +64,25 @@ def toLeaderboard():
    lb_frame.tkraise()
    refresh_leaderboard()     #used for live updating
 
-
-def addPlayer():
-   #add a prompt space to write who the new user is
-   popup = tk.Toplevel(window)
-   popup.title("Add Player")
-   popup.geometry("300x150")
-   #popup.resizable(False,False)
+"""
+@app.route("/add_player", methods=["POST"])   
+def add_Player():
       
-   addPrompt = tk.Label(popup, text="Who is this new user?", font=('Arial', 12))
-   addPrompt.pack(pady=10)
+   name = request.form.get("name")
 
-   entry = tk.Entry(popup, width=25)
-   entry.pack(pady=5)
+   if not name:
+      return redirect("/leaderboard")
+   
+   Leaderboard[name] = 0.0
 
-   def submit():
-      name = entry.get().strip()
-      if not name:
-         messagebox.showwarning("Input Error", "Please enter a name.")
-         return
-      
-      rank = len(tree.get_children()) + 1
-      tree.insert("", "end", values=(rank, name, 0))
-      popup.destroy()
+   with open(FILENAME, "w") as f:     #saving the new leaderboard to the file directly inside the function to fix the not saving score problem
+      json.dump(Leaderboard, f, indent=4)
 
-
-      Leaderboard[name] = 0.0
-      with open(FILENAME, "w") as f:     #saving the new leaderboard to the file directly inside the function to fix the not saving score problem
-         json.dump(Leaderboard, f, indent=4)
-
-      refresh_leaderboard()
-
-   submit_btn = tk.Button(popup, text="Submit", command=submit)
-   submit_btn.pack(pady=10)
+   return redirect("/leaderboard")
       
       
 
-
+"""
 def addScore():
    #add a prompt space to write who its for, then based on that add the score that they type in another prompt
    popup = tk.Toplevel(window)

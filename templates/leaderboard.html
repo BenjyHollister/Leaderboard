@@ -3,7 +3,7 @@
 <body>
     <!-- Below is the html logic for the UI of the leaderboard  -->
     <h1>Leaderboard</h1>
-    <table>
+    <table border="3">
         <tr>
             <th>Rank</th>
             <th>Name</th>
@@ -18,5 +18,10 @@
         </tr>
         {% endfor %}
     </table>
+    <h2>Add Player</h2>
+    <form method="POST" action="/add_player">
+        <input type="text" name="name">
+        <button type="submit">Add Player</button>
+    </form>
 </body>
 </html>
