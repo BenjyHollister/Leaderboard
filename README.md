@@ -32,7 +32,9 @@ The following is the step-by-step plan from the start of the project: [Leaderboa
 
 ## Future Improvements
 * Make it universally usable to fit any users' needs
+  * For example, having availability to edit the names of the scoreboards or create different groups as a user/admin
 * Automatically upload the data into the leaderboard
 * Player profiles
+* Improving the UI of the web app, make it more appealing and feel nicer to user (at the moment I've been focusing more on functionality
 
 ## Post Project Review
