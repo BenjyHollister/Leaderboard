@@ -82,68 +82,32 @@ def add_Player():
       
       
 
-"""
+@app.route("/add_score", methods=["POST"])
 def addScore():
-   #add a prompt space to write who its for, then based on that add the score that they type in another prompt
-   popup = tk.Toplevel(window)
-   popup.title("Add Score")
-   popup.geometry("300x180")
-   #popup.resizable(False,False)
-
-   namePrompt = tk.Label(popup, text="Who is this score for?", font=('Arial', 12))
-   namePrompt.pack(pady=10)
-
-   name_entry = tk.Entry(popup, width=25)
-   name_entry.pack(pady=5)
-
-   scorePrompt = tk.Label(popup, text="Enter new score: ", font=('Arial', 12))
-   scorePrompt.pack(pady=5)
-
-   score_entry = tk.Entry(popup, width=25)
-   score_entry.pack(pady=5)
-
-   def submit():
-      name = name_entry.get().strip()
-      score_text = score_entry.get().strip()
-      score = float(score_text) #converting string to float so it can be added successfully to leaderboard file
-
-      Leaderboard[name] = score
-
-      refresh_leaderboard()
-
-      if not name or not score_text:
-         messagebox.showwarning("Missing Info", "Please enter both name and score.")
-         return
-
-      try:
-         score = float(score_text)
-      except ValueError:
-         messagebox.showwarning("Invalid Score", "Score must be a number.")
-         return
-      
-      with open(FILENAME, "w") as f:     #saving the new leaderboard to the file directly inside the function to fix the not saving score problem
-         json.dump(Leaderboard, f, indent=4)
-
-      # Update if player exists
-      for item in tree.get_children():
-         rank, player, old_score = tree.item(item, "values")
-         if player.lower() == name.lower():
-            tree.item(item, values=(rank, player, score))
-            messagebox.showinfo("Updated", f"{player}'s score updated to {score}.")
-            popup.destroy()
-            return
-
-      # Otherwise, add new player
-      rank = len(tree.get_children()) + 1
-      tree.insert("", "end", values=(rank, name, score))
-      messagebox.showinfo("Added", f"{name} added with score {score}.")
-      popup.destroy()
    
-   submit_btn = tk.Button(popup, text="Submit", command=submit)
-   submit_btn.pack(pady=10)
+   name = request.form.get("name")
+   score = request.form.get("score")
+
+   if not name:
+      return redirect("/leaderboard")
+
+   if not score:
+      return redirect("/leaderboard")
+
+   try:
+      score = float(score)
+   except ValueError:
+      return redirect("/leaderboard")
+
+   Leaderboard[name] = score
+
+   with open(FILENAME, "w") as f:     #saving the new leaderboard to the file directly inside the function to fix the not saving score problem
+      json.dump(Leaderboard, f, indent=4)
+
+   return redirect("/leaderboard")
 
 
-
+"""
 #Add menu dropdown
 add_menu = tk.Menubutton(lb_frame, text="Add", width=15, relief="raised")
 add_menu.menu = tk.Menu(add_menu, tearoff=0)

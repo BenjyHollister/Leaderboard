@@ -22,10 +22,12 @@
     <!-- Button container -->
     <div id="button-container" style="margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap;">
         <button onclick="openAddPlayerPopup()" style="padding: 10px 15px;">Add Player</button>
+        <button onclick="openAddScorePopup()" style="padding: 10px 15px;">Add Score</button>
     </div>
 
+
     <!-- Add Player popup -->
-    <div id="popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid black;">
+    <div id="add-player-popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid black;">
         <h2>Add Player</h2>
 
         <form method="POST" action="/add_player">
@@ -35,13 +37,33 @@
         </form>
     </div>
 
+    <!-- Add Score popup -->
+    <div id="add-score-popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid black;">
+        <h2>Add Score</h2>
+
+        <form method="POST" action="/add_score">
+            <input type="text" name="name">
+            <input type="number" score="score">
+            <button type="submit">Submit</button>
+            <button type="button" onclick="closeAddScorePopup()">Cancel</button>
+        </form>
+    </div>
+
     <script>
     function openAddPlayerPopup() {
-        document.getElementById("popup").style.display = "block";
+        document.getElementById("add-player-popup").style.display = "block";
     }   
 
     function closeAddPlayerPopup() {
-        document.getElementById("popup").style.display = "none";
+        document.getElementById("add-player-popup").style.display = "none";
+    }
+
+    function openAddScorePopup() {
+        document.getElementById("add-score-popup").style.display = "block";
+    }   
+
+    function closeAddScorePopup() {
+        document.getElementById("add-score-popup").style.display = "none";
     }
     </script>
 </body>
