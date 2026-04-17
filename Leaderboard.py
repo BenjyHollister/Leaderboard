@@ -83,7 +83,7 @@ def add_Player():
       
 
 @app.route("/add_score", methods=["POST"])
-def addScore():
+def add_Score():
    
    name = request.form.get("name")
    score = request.form.get("score")
