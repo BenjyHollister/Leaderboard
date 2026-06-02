@@ -107,8 +107,7 @@ def add_Score():
    return redirect("/leaderboard")
 
 
-#work in progress
-@app.route("/delete_entry", methods=["DELETE"])
+@app.route("/delete_entry", methods=["POST"])
 def delete_entry():
 
    name = request.form.get("name")
@@ -124,80 +123,6 @@ def delete_entry():
    return redirect("/leaderboard")
 
 
-"""
-   def confirm_delete():
-      name = name_entry.get()
-      #delete logic here
-      popup.destroy
-
-   def submit():
-      #the logic for deleting an entry
-      name = name_entry.get().strip()
-
-      if not name:
-         messagebox.showwarning("Missing Info", "Please enter a name to delete.")
-         return
-      
-      #search and delete player
-      for item in tree.get_children():
-         rank, player, score = tree.item(item, "values")
-
-         if player.lower() == name.lower():
-            deleted_player = player #save deleted player, to fix messagebox error
-            tree.delete(item)
-
-            Leaderboard.pop(player, None)
-
-            for i, item in enumerate(tree.get_children(), start=1):
-               _, player, score = tree.item(item, "values")
-               tree.item(item, values=(i, player, score))
-
-            
-            with open(FILENAME, "w") as f: 
-               json.dump(Leaderboard, f, indent=4)
-            #saving the new leaderboard with deleted members to the file, as currently they aren't deleted on the jsongit 
-
-            messagebox.showinfo("Deleted", f"{deleted_player} has been removed from the leaderboard.")      
-            popup.destroy()
-            return
-      """
-
-"""
-def back():
-   menu_frame.tkraise()
-
-
-
-#Main menu frame
-label = tk.Label(menu_frame, text="Welcome to the Leaderboards", font=('Arial', 18))
-label.pack(padx=20, pady=20)
-
-label = tk.Label(menu_frame, text="Main Menu", font=('Arial', 14))
-label.pack(padx=20, pady=30)
-
-btn1 = tk.Button(menu_frame, text="Leaderboard", width=25, command=toLeaderboard)
-btn1.pack(pady=10)
-
-btn2 = tk.Button(menu_frame, text="Help", width=25, command=help)
-btn2.pack(pady=10)
-
-btn3 = tk.Button(menu_frame, text="Exit", width=25, command=exit)
-btn3.pack(pady=10)
-
-#Leaderboard frame
-
-label = tk.Label(lb_frame, text="Shot Speed", font=('Arial', 18))
-label.grid(row=0, column=0, columnspan=3, pady=20)
-
-lb_btn2 = tk.Button(lb_frame, text = "Delete", width=15, command=delete) #, command=delete
-lb_btn2.grid(row=2, column=1, pady=10)
-
-lb_btn3 = tk.Button(lb_frame, text="Back", width=15, command=back)
-lb_btn3.grid(row=2, column=2, pady=10)
-
-menu_frame.tkraise()
-
-"""
 
 if __name__ == "__main__":
    app.run(debug=True)
