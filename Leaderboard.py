@@ -107,29 +107,24 @@ def add_Score():
    return redirect("/leaderboard")
 
 
+#work in progress
+@app.route("/delete_entry", methods=["DELETE"])
+def delete_entry():
+
+   name = request.form.get("name")
+
+   if not name:
+      redirect("/leaderboard")
+
+   Leaderboard.pop(name, None)
+
+   with open(FILENAME, "w") as f: 
+      json.dump(Leaderboard, f, indent=4)
+
+   return redirect("/leaderboard")
+
+
 """
-#Add menu dropdown
-add_menu = tk.Menubutton(lb_frame, text="Add", width=15, relief="raised")
-add_menu.menu = tk.Menu(add_menu, tearoff=0)
-add_menu["menu"] = add_menu.menu
-
-add_menu.menu.add_command(label="Add Player", command=addPlayer)
-add_menu.menu.add_command(label="Add Score", command=addScore)
-
-add_menu.grid(row=2, column=0, pady=10)
-
-def delete():
-   #add a prompt space to write who you're deleting, then based on that delete the score that they type in another prompt
-   popup = tk.Toplevel(window)
-   popup.title("Delete Score")
-   popup.geometry("300x180")
-
-   namePrompt = tk.Label(popup, text="Who's score are you deleting?", font=('Arial', 12))
-   namePrompt.pack(pady=10)
-
-   name_entry = tk.Entry(popup, width=25)
-   name_entry.pack(pady=5)
-
    def confirm_delete():
       name = name_entry.get()
       #delete logic here
@@ -165,15 +160,9 @@ def delete():
             messagebox.showinfo("Deleted", f"{deleted_player} has been removed from the leaderboard.")      
             popup.destroy()
             return
-      #If name not found
-      messagebox.showwarning("Not Found", f"No player name '{name}' found.")
+      """
 
-      refresh_leaderboard()
-
-   submit_btn = tk.Button(popup, text="Submit", command=submit)
-   submit_btn.pack(pady=10)
-
-
+"""
 def back():
    menu_frame.tkraise()
 
