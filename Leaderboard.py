@@ -34,37 +34,6 @@ def leaderboard():
    return render_template("leaderboard.html", leaderboard=leaderboard_data)
 
 
-""" commented out until i can rewrite in for flask
-def refresh_leaderboard():
-   #This function will be for live updating and sorting the leaderboard when things are changed
-   sorted_board = sorted(Leaderboard.items(), key=lambda item: item[1], reverse=True)
-   for item in tree.get_children():
-      tree.delete(item)
-   for i, (name, score) in enumerate(sorted_board, start=1):
-      tree.insert("", "end", values=(i, name, score))
-
-refresh_leaderboard()
-"""
-""" all below is mixed logic/tkinter so is commented out so we can test step by step
-#Button functions
-
-def exit():
-   quit() #closes the tkinter window
-
-def help():
-   help_frame = tk.Frame(menu_frame, bg="lightgrey")
-   help_frame.place(relx=0.5, rely=0.5, anchor="center")
-
-   helpLabel = tk.Label(help_frame, text="This explains everything", bg="lightgrey")
-   helpLabel.pack(padx=10, pady=10)
-   helpButton = tk.Button(help_frame, text="Close", command=help_frame.destroy)
-   helpButton.pack(pady=5)
-   
-def toLeaderboard():
-   lb_frame.tkraise()
-   refresh_leaderboard()     #used for live updating
-
-"""
 @app.route("/add_player", methods=["POST"])   
 def add_Player():
       
