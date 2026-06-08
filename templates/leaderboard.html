@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <!-- Below is the html logic for the UI of the leaderboard  -->
+    <h1>Leaderboard</h1>
+    <table border="3">
+        <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Score</th>
+        </tr>
+
+        {% for player in leaderboard %}
+        <tr>
+            <td>{{ player.rank }}</td>
+            <td>{{ player.name }}</td>
+            <td>{{ player.score }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Button container -->
+    <div id="button-container" style="margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap;">
+        <button onclick="openAddPlayerPopup()" style="padding: 10px 15px;">Add Player</button>
+        <button onclick="openAddScorePopup()" style="padding: 10px 15px;">Add Score</button>
+        <button onclick="openDeleteEntryPopup()" style="padding: 10px 15px;">Delete Entry</button>
+    </div>
+
+
+    <!-- Add Player popup -->
+    <div id="add-player-popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid black;">
+        <h2>Add Player</h2>
+
+        <form method="POST" action="/add_player">
+            <input type="text" name="name">
+            <button type="submit">Submit</button>
+            <button type="button" onclick="closeAddPlayerPopup()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Add Score popup -->
+    <div id="add-score-popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid black;">
+        <h2>Add Score</h2>
+
+        <form method="POST" action="/add_score">
+            <input type="text" name="name">
+            <input type="number" name="score">
+            <button type="submit">Submit</button>
+            <button type="button" onclick="closeAddScorePopup()">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Delete Entry popup -->
+    <div id="delete-entry-popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border:1px solid black;">
+        <h2>Delete Entry</h2>
+
+        <form method="POST" action="/delete_entry">
+            <input type="text" name="name">
+            <button type="submit">Submit</button>
+            <button type="button" onclick="closeDeleteEntryPopup()">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+    function openAddPlayerPopup() {
+        document.getElementById("add-player-popup").style.display = "block";
+    }   
+
+    function closeAddPlayerPopup() {
+        document.getElementById("add-player-popup").style.display = "none";
+    }
+
+    function openAddScorePopup() {
+        document.getElementById("add-score-popup").style.display = "block";
+    }   
+
+    function closeAddScorePopup() {
+        document.getElementById("add-score-popup").style.display = "none";
+    }
+
+    function openDeleteEntryPopup() {
+        document.getElementById("delete-entry-popup").style.display = "block";
+    }   
+
+    function closeDeleteEntryPopup() {
+        document.getElementById("delete-entry-popup").style.display = "none";
+    }
+    </script>
+</body>
+</html>
