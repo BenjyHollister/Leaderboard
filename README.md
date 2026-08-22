@@ -25,7 +25,7 @@ Once the program is running, users can:
 ## Demo Videos
 * [Terminal Output Demo](https://github.com/user-attachments/assets/c26b223a-e803-4115-8932-6b3fac6597a0)
 * [Simple GUI Demo](https://github.com/user-attachments/assets/89b133be-de7e-4472-b175-60e98a586d90)
-* [Webapp Demo]()
+* [Webapp Demo](https://github.com/user-attachments/assets/d1992bc7-4eca-4b8e-ab66-6ab79d1befdf)
 
 ## Documentation
 The following is the step-by-step plan from the start of the project: [Leaderboard Plan](Leaderboard_Plan.md)
