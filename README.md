@@ -38,3 +38,8 @@ The following is the step-by-step plan from the start of the project: [Leaderboa
 * Improving the UI of the web app, make it more appealing and feel nicer to user (at the moment I've been focusing more on functionality
 
 ## Post Project Review
+This project started as an exercise in building a leaderboard system and grew into a larger project than I initially expected. The original goal was to create a functional leaderboard and explore how the same underlying system could be presented through different interfaces. I achieved this through three implementations: a terminal application, a GUI application, and a web application.
+
+Along the way I had to work through different approaches to application structure, user interfaces, data handling, and keeping the underlying functionality consistent across multiple implementations. It also gave me the opportunity to develop my Python skills through a project that went beyond a small standalone script.
+
+There are certainly parts I would approach differently if I were starting the project again, but I'm happy with where it has ended up. Most importantly, it achieved what I originally set out to do, and I think it represents a useful snapshot of my Python development at this point. I'm therefore considering the project complete and am moving on rather than continuing to add features for the sake of it.
